@@ -1,0 +1,33 @@
+# Kirogotchi: Tasks
+
+- [x] 1. Quantum model
+  - [x] 1.1 `GhostState`, hunger angle, depolarizing probability
+  - [x] 1.2 Single-ghost circuit with X, RY, care gates, noise
+  - [x] 1.3 Bound circuit with CNOT
+  - [x] 1.4 `Backend` with local density-matrix simulator and optional `AwsDevice`
+  - [x] 1.5 Closed-form P(alive) and simulator cross-check tests
+- [x] 2. Storage
+  - [x] 2.1 SQLite schema and `Ghost` dataclass
+  - [x] 2.2 hatch / get / save with upsert
+- [x] 3. API
+  - [x] 3.1 hatch, status, care, bind, look
+  - [x] 3.2 Owner secret header and error codes
+  - [x] 3.3 Bound look updates both ghosts and breaks the bond
+  - [x] 3.4 API tests with temp database
+- [x] 4. UI
+  - [x] 4.1 Hatch screen
+  - [x] 4.2 Superposed ghost (two copies), actions
+  - [x] 4.3 Collapse animation, reveal card with circuit
+  - [x] 4.4 Tombstone and hatch-again
+  - [x] 4.5 Bind form and share code
+  - [x] 4.6 "kiro" easter egg (swarm + wordmark)
+  - [x] 4.7 Trademark notice and honesty note
+  - [x] 4.8 Plain-language layer: intro, per-action hints, quantum and How to play panels
+  - [x] 4.9 Constant turning (app/spin.py), candle as a random turn, no hours
+  - [x] 4.10 Animations: hamburger, play, fire, eyes
+  - [x] 4.11 Final screen with the labeled real circuit
+- [ ] 5. Delivery
+  - [ ] 5.1 Dockerfile and hosted URL
+  - [ ] 5.2 Run one look on a real QPU for the video (`BRAKET_DEVICE_ARN`)
+  - [ ] 5.3 3-minute video
+  - [ ] 5.4 Devpost write-up including how Kiro was used

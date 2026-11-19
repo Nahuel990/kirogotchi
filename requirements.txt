@@ -1,0 +1,5 @@
+amazon-braket-sdk>=1.90
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pytest>=8
+httpx>=0.27

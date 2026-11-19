@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Keep requirements honest",
+  "description": "When UI copy changes, check that every quantum claim in the page still matches the model and the spec.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["static/index.html", "static/app.js"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Compare the quantum claims in static/index.html (quantum panel, How to play, final screen) and static/app.js (hints, final screen, circuit labels) against app/quantum.py, app/spin.py and .kiro/specs/kirogotchi/requirements.md R3-R6. Report any mismatch and fix the copy, never the physics, unless the spec was changed on purpose."
+  }
+}
