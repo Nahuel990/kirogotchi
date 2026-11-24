@@ -6,4 +6,3 @@ __pycache__/
 .DS_Store
 # .kiro is intentionally NOT ignored: it is part of the submission.
 # private working notes, not part of the submission
-CLAUDE.md
