@@ -1,7 +1,8 @@
 # Tech steering
 
 - Python 3.12, FastAPI, amazon-braket-sdk. Default device is
-  `LocalSimulator("braket_dm")` because depolarizing is a channel.
+  `LocalSimulator("braket_dm")` because it gives the exact probability with
+  `shots=0` and a single shot for the Look.
 - `BRAKET_DEVICE_ARN` switches to a real device; never ship a default ARN
   (it costs money).
 - Front end is plain HTML/CSS/JS in `static/`. No bundler, no framework.

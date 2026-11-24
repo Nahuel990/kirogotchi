@@ -10,7 +10,7 @@ browser (static/)  ──fetch──▶  FastAPI (app/main.py)
                                               └── AwsDevice(BRAKET_DEVICE_ARN)  optional QPU
 ```
 
-One qubit per ghost. `|1⟩` alive, `|0⟩` dead.
+One qubit per ghost. `|1⟩` alive, `|0⟩` gone.
 
 ## Quantum model (quantum.py, spin.py)
 
@@ -34,9 +34,8 @@ press applies to both records. On look, prepare qubit 0 from that record, qubit 
 stays `|0>`, then `CNOT(0, 1)`. Outcomes are `00` or `11` only.
 
 ### Why density matrix
-Depolarizing is a channel, not a gate, so the local density-matrix
-simulator is required. `probability_alive` runs with `shots=0` and reads
-the exact probability; `look` runs with `shots=1`.
+The local density-matrix simulator gives the exact P(alive) with `shots=0`
+(`probability_alive`) and one shot for `look`.
 
 ### QPU mode
 `BRAKET_DEVICE_ARN` switches `Backend` to `AwsDevice`. Noise channels are
@@ -56,7 +55,7 @@ events.
 |---|---|---|
 | POST | /api/ghosts | no |
 | GET | /api/ghosts/{id} | no |
-| POST | /api/ghosts/{id}/care/{feed\|play} | no |
+| POST | /api/ghosts/{id}/care/{feed\|play\|fire} | no |
 | POST | /api/ghosts/{id}/bind | no |
 | POST | /api/ghosts/{id}/look | **yes, one shot** |
 

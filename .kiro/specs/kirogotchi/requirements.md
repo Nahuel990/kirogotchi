@@ -2,12 +2,12 @@
 
 ## Introduction
 
-Kirogotchi is a virtual pet whose alive-or-dead state is a qubit. Between
+Kirogotchi is a virtual pet whose alive-or-gone state is a qubit. Between
 looks the ghost is in superposition. Opening the app prepares the state from
 the ghost's care record, runs it on Amazon Braket, and measures once. The
 pet is the Kiro ghost.
 
-Kiroween 2026 categories: Resurrection (the Tamagotchi), Frankenstein
+Kiroween 2026 categories: Resurrection (the 90s pocket pet), Frankenstein
 (a quantum SDK stitched to a virtual pet), Costume Contest (a haunting UI
 with the Kiro ghost as the pet and a "kiro" easter egg).
 
@@ -41,7 +41,7 @@ on the qubit.
 - 3.3 Queued gates SHALL be applied, in order, in the next look's circuit,
   then cleared.
 - 3.4 Four consecutive feeds on a ghost that is fully alive SHALL rotate it
-  to P(alive)=0 (overfeeding kills, as on a Tamagotchi).
+  to P(alive)=0 (overfeeding kills).
 - 3.5 Dragging the candle onto the ghost SHALL add a turn of random size,
   drawn once on the server and stored.
 
@@ -54,30 +54,30 @@ on the qubit.
 ### R5. The look
 **User story:** As a player, I want "Look" to be a single real measurement.
 - 5.1 `POST /api/ghosts/{id}/look` SHALL run the prepared circuit with
-  `shots = 1` and SHALL use bit `1` as alive, `0` as dead.
+  `shots = 1` and SHALL use bit `1` as alive, `0` as gone.
 - 5.2 The response SHALL include the circuit diagram, the device name, the
   measured bitstring and the exact P(alive) before measurement.
-- 5.3 IF the outcome is dead THEN the ghost SHALL be marked departed and
+- 5.3 IF the outcome is gone THEN the ghost SHALL be marked departed and
   further care SHALL be rejected with 409.
 - 5.4 A look SHALL increment `looks` and clear queued gates.
 
 ### R6. Binding (entanglement)
 **User story:** As a player, I want to bind my ghost to a friend's so that
-we share one fate.
+we share one answer.
 - 6.1 Binding SHALL require both ghosts alive and unbound, and SHALL reject
   self-binding.
 - 6.2 A look on a bound ghost SHALL run a two-qubit circuit: first ghost
-  prepared, second ghost initialised dead, then `CNOT(0 → 1)`.
+  prepared, second ghost initialised as `|0⟩`, gone, then `CNOT(0 → 1)`.
 - 6.3 Both ghosts SHALL receive the same outcome and the bond SHALL be
   broken by the measurement.
 
 ### R7. Costume
 - 7.1 The pet SHALL be the Kiro ghost, used under the Kiroween 2026
-  Official Rules, with a trademark notice in README and the page footer.
+  Official Rules, with a trademark notice in README and the How to play panel.
 - 7.2 Typing `k i r o` outside an input SHALL trigger the easter egg: a
   swarm of Kiro ghosts and the Kiro wordmark.
 - 7.3 The page SHALL work at phone width with no horizontal scroll.
 
 ### R8. Honesty
-- 8.1 The UI SHALL state that the qubit is re-prepared from the record on
+- 8.1 The README SHALL state that the qubit is re-prepared from the record on
   each look, and that only the single-shot measurement is real.

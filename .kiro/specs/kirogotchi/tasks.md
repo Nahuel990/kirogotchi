@@ -27,7 +27,8 @@
   - [x] 4.10 Animations: hamburger, play, fire, eyes
   - [x] 4.11 Final screen with the labeled real circuit
 - [ ] 5. Delivery
-  - [ ] 5.1 Dockerfile and hosted URL
+  - [x] 5.1 Dockerfile
+  - [ ] 5.1b Hosted URL on AWS, added to the README
   - [ ] 5.2 Run one look on a real QPU for the video (`BRAKET_DEVICE_ARN`)
   - [ ] 5.3 3-minute video
   - [ ] 5.4 Devpost write-up including how Kiro was used
