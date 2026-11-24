@@ -10,6 +10,7 @@ static/
   index.html style.css app.js kiro-ghost.svg kiro-wordmark.png
 tests/
   test_quantum.py test_api.py test_spin.py
+README.md LICENSE Dockerfile requirements.txt
 .kiro/
   specs/kirogotchi/{requirements,design,tasks}.md
   steering/{product,tech,structure}.md

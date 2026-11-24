@@ -38,9 +38,10 @@ The local density-matrix simulator gives the exact P(alive) with `shots=0`
 (`probability_alive`) and one shot for `look`.
 
 ### QPU mode
-`BRAKET_DEVICE_ARN` switches `Backend` to `AwsDevice`. Noise channels are
-not QPU instructions, so `noise_supported = False` drops them; the hardware
-supplies real decoherence. This costs money per task and needs AWS
+`BRAKET_DEVICE_ARN` switches `Backend` to `AwsDevice`. The game adds no
+noise channel, so the circuit is the same on both devices; on hardware the
+decoherence is real. `noise_supported = False` also tells `/api/device`
+that a QPU is in use. This costs money per task and needs AWS
 credentials; it is meant for the demo video, not the public URL.
 
 ## Storage (store.py)
@@ -83,8 +84,9 @@ unbinds and the look proceeds single-qubit.
 
 ## Testing
 
-- `tests/test_quantum.py`: closed form vs simulator, birth, gates, entanglement
-  correlations (40 shots, only `00`/`11`).
+- `tests/test_quantum.py`: closed form vs simulator, birth, spin box, gates,
+  entanglement correlations (40 shots, only `00`/`11`), and the unused hunger
+  and depolarizing helpers.
 - `tests/test_spin.py`: speed bounds, direction changes, continuity, and the
   page's JavaScript giving the same angle as the server.
 - `tests/test_api.py`: full flows through FastAPI's TestClient with a temp

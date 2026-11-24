@@ -1,8 +1,8 @@
 # Kirogotchi: Tasks
 
 - [x] 1. Quantum model
-  - [x] 1.1 `GhostState`, hunger angle, depolarizing probability
-  - [x] 1.2 Single-ghost circuit with X, RY, care gates, noise
+  - [x] 1.1 `GhostState`: birth, spin and queued care gates (the hunger and depolarizing helpers remain for the tests only; play passes zero hours)
+  - [x] 1.2 Single-ghost circuit: X, H, RY(spin), RY per care gate
   - [x] 1.3 Bound circuit with CNOT
   - [x] 1.4 `Backend` with local density-matrix simulator and optional `AwsDevice`
   - [x] 1.5 Closed-form P(alive) and simulator cross-check tests
@@ -26,6 +26,7 @@
   - [x] 4.9 Constant turning (app/spin.py), candle as a random turn, no hours
   - [x] 4.10 Animations: hamburger, play, fire, eyes
   - [x] 4.11 Final screen with the labeled real circuit
+  - [ ] 4.12 Touch on phones: the candle cannot be dragged yet
 - [ ] 5. Delivery
   - [x] 5.1 Dockerfile
   - [ ] 5.1b Hosted URL on AWS, added to the README
