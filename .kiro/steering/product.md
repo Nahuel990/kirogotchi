@@ -10,6 +10,6 @@ Rules for any change:
   and the mapping must be stated in the UI. No fake quantum.
 - Be honest in copy: never claim more than the simulation does. The README
   states that the qubit is re-prepared on each look.
-- The pet is the Kiro ghost. Keep the trademark notice in README and footer.
+- The pet is the Kiro ghost. Keep the trademark notice in README and the How to play panel.
 - Tone: haunting, dry, short sentences. No exclamation marks in UI copy.
 - No emojis anywhere.
