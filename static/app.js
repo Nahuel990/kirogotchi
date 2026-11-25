@@ -51,7 +51,7 @@ function render(g) {
   if (ev) {
     showReveal({
       ...g, alive: ev.alive, odds_alive_before: ev.odds, circuit: ev.circuit, steps: ev.steps,
-      cause: ev.cause, bitstring: ev.bitstring, bound_outcome: { name: ev.by, alive: ev.partner_alive }, by: ev.by,
+      bitstring: ev.bitstring, bound_outcome: { name: ev.by, alive: ev.partner_alive }, by: ev.by,
     });
     $("#reveal-close").onclick = () => { $("#reveal").hidden = true; render(g); };
   }
@@ -209,7 +209,6 @@ function friendPressed(g) {
 /* steps from the top, on either side of the wheel; the sign says which side */
 function stepsSigned(g) { return Math.round(netTheta(g) / Math.PI * 24); }
 function stepsDown(g) { return Math.abs(stepsSigned(g)); }
-/* The wheel turns one way for Feed and Play, the other way for the hours. Past the top (the far side) a press turns it away from the top. */
 function age(g) {
   const h = (Date.now() / 1000 - g.created_at) / 3600;
   if (h < 1) return `${Math.max(1, Math.round(h * 60))} min`;
@@ -346,11 +345,9 @@ $("#look-btn").addEventListener("click", async () => {
   lookBefore = current ? {
     steps: stepsDown(current), net: stepsSigned(current),
     birth: Math.round((current.birth_angle || 0) / Math.PI * 24),
-    hunger: 0, // no hours any more
     feeds: current.care_gates.filter((c) => c === "feed").length,
     plays: current.care_gates.filter((c) => c === "play").length,
     fires: current.care_gates.filter((c) => c.startsWith("fire:")).length,
-    days: 0, bumped: 0,
   } : null;
   const wrap = $("#ghost");
   wrap.classList.add("collapsing");
@@ -420,7 +417,6 @@ function revealWhy(res, pct) {
 const BOX_WORDS = {
   start: ["start", "fully alive"], spin: ["turned on", "its own"],
   feed: ["your Feed"], play: ["your Play"], candle: ["the candle's", "heat"],
-  hunger: ["hunger"], noise: ["noise"],
 };
 function drawCircuit(res) {
   const raw = res.circuit || "";

@@ -1,7 +1,7 @@
 # Kirogotchi: Tasks
 
 - [x] 1. Quantum model
-  - [x] 1.1 `GhostState`: birth, spin and queued care gates (the hunger and depolarizing helpers remain for the tests only; play passes zero hours)
+  - [x] 1.1 `GhostState`: birth, spin and queued care gates
   - [x] 1.2 Single-ghost circuit: X, H, RY(spin), RY per care gate
   - [x] 1.3 Bound circuit with CNOT
   - [x] 1.4 `Backend` with local density-matrix simulator and optional `AwsDevice`

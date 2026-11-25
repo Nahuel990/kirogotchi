@@ -28,7 +28,6 @@ app = FastAPI(title="Kirogotchi", version="0.1.0")
 store = Store(os.environ.get("KIROGOTCHI_DB", str(ROOT / "kirogotchi.db")))
 backend = Backend()
 
-HOUR = 3600.0
 
 
 def _spin(g: Ghost, now: float) -> float:
@@ -43,11 +42,8 @@ def _anchor(g: Ghost, now: float) -> None:
 
 
 def _state(g: Ghost, now: float) -> GhostState:
-    # No hours: the ring's constant motion is what changes the odds.
     # The birth, then the ring's own turning at this second; presses are added by the circuit.
     return GhostState(
-        hours_since_care=0.0,
-        hours_since_look=0.0,
         care_gates=list(g.care_gates),
         birth_angle=g.birth_angle,  # the birth stays its own step: X and H
         spin=math.remainder(_spin(g, now), 2 * math.pi),
@@ -65,12 +61,10 @@ def _owned(ghost_id: str, secret: str | None) -> Ghost:
 
 def _view(g: Ghost, now: float) -> dict:
     d = g.public()
-    d["hours_since_care"] = round((now - g.last_look_at) / HOUR, 3)  # hunger counts from the last look, not from care
     d["birth_angle"] = g.birth_angle
     if g.bound_to:
         other = store.get(g.bound_to)
         d["bound_name"] = other.name if other else None
-    d["hours_since_look"] = round((now - g.last_look_at) / HOUR, 3)
     d["pending_gates"] = [f"RY(-{gate_angle(x):.3f}) [{x.split(':')[0]}]" for x in g.care_gates]
     d["device"] = backend.name
     d["now"] = now  # the page uses this to compute the ring on the server's clock
@@ -88,7 +82,7 @@ class BindBody(BaseModel):
 @app.get("/api/device")
 def device():
     """Which machine runs the looks. Honest by construction."""
-    return {"name": backend.name, "is_qpu": not backend.noise_supported, "arn": backend.device_arn}
+    return {"name": backend.name, "is_qpu": backend.is_qpu, "arn": backend.device_arn}
 
 
 @app.get("/")
@@ -196,7 +190,6 @@ def look(ghost_id: str, x_ghost_secret: str | None = Header(default=None)):
                 "odds": odds,
                 "circuit": shot["circuit"],
                 "steps": shot["steps"],
-                "cause": shot["cause"],
                 "bitstring": shot["bitstring"],
                 "partner_alive": g.alive,
             }
@@ -211,7 +204,6 @@ def look(ghost_id: str, x_ghost_secret: str | None = Header(default=None)):
                 "bound_outcome": {"id": other.id, "name": other.name, "alive": other.alive},
                 "circuit": shot["circuit"],
                 "steps": shot["steps"],
-                "cause": shot["cause"],
                 "bitstring": shot["bitstring"],
             }
         )
@@ -228,7 +220,6 @@ def look(ghost_id: str, x_ghost_secret: str | None = Header(default=None)):
             "circuit": shot["circuit"],
             "boxes": shot["boxes"],
             "steps": shot["steps"],
-            "cause": shot["cause"],
             "bitstring": shot["bitstring"],
         }
     )

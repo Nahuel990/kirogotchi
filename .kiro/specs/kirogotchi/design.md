@@ -23,7 +23,7 @@ RY(spin(t))            its own turning: seeded random walk, new speed and direct
 RY(-a) per care gate   feed a = pi/4, play a = pi/6, candle a = random, stored as "fire:<a>"
 ```
 
-Closed form used by tests: `P(alive) = cos^2(theta_net/2)` (no noise channel; hours are gone).
+Closed form used by tests: `P(alive) = cos^2(theta_net/2)`. The circuit has no noise channel.
 
 spin(t) is computed by the same seeded function in app/spin.py and static/app.js,
 so the two ghosts on the page show the odds the Look uses. A press anchors the
@@ -38,10 +38,9 @@ The local density-matrix simulator gives the exact P(alive) with `shots=0`
 (`probability_alive`) and one shot for `look`.
 
 ### QPU mode
-`BRAKET_DEVICE_ARN` switches `Backend` to `AwsDevice`. The game adds no
-noise channel, so the circuit is the same on both devices; on hardware the
-decoherence is real. `noise_supported = False` also tells `/api/device`
-that a QPU is in use. This costs money per task and needs AWS
+`BRAKET_DEVICE_ARN` switches `Backend` to `AwsDevice` and sets `is_qpu`,
+which `/api/device` reports. The circuit is the same on both devices; on
+hardware the decoherence is real. This costs money per task and needs AWS
 credentials; it is meant for the demo video, not the public URL.
 
 ## Storage (store.py)
@@ -85,8 +84,8 @@ unbinds and the look proceeds single-qubit.
 ## Testing
 
 - `tests/test_quantum.py`: closed form vs simulator, birth, spin box, gates,
-  entanglement correlations (40 shots, only `00`/`11`), and the unused hunger
-  and depolarizing helpers.
+  the candle's stored turn, entanglement correlations (40 shots, only
+  `00`/`11`).
 - `tests/test_spin.py`: speed bounds, direction changes, continuity, and the
   page's JavaScript giving the same angle as the server.
 - `tests/test_api.py`: full flows through FastAPI's TestClient with a temp
